@@ -1,66 +1,303 @@
 .p-plans {
   max-width: 1120px;
   width: 100%;
+  margin: 0 auto;
+  padding: 48px 0 80px;
 
   &__header {
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
   }
 
   &__back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: none;
-    color: $color-primary;
-    margin-bottom: 1rem;
+    border: none;
+    color: $color-purple;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 24px;
+    padding: 0;
+
+    font-family: Lato;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+  }
+
+  &__back-icon {
+    width: 32px;
+    height: 32px;
   }
 
   &__title {
-    font-size: 1.8rem;
-    margin-bottom: 0.4rem;
+    font-family: Lato;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+    text-align: center;
   }
 
   &__subtitle {
-    color: $color-gray;
-    margin-bottom: 1.5rem;
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+    text-align: center;
+    margin-bottom: 32px;
+    color: $color-text-blue;
   }
 
   &__modes {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 32px;
+    width: 100%;
+    max-width: 640px;
   }
 
   &__mode-card {
     @include card;
-    padding: 1.2rem 1.4rem;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 24px 40px;
     text-align: left;
-    background: #fff;
+    background: #ffffff;
+    border-radius: 24px;
     border: 2px solid transparent;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
+    transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    flex-direction: column;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0px 12px 30px rgba(8, 15, 52, 0.1);
+    }
 
     &--active {
       border-color: $color-primary;
-      box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+      box-shadow: 0px 12px 30px rgba($color-primary, 0.2);
+
+      .p-plans__mode-radio {
+        border-color: $color-primary;
+
+        &::after {
+          opacity: 1;
+        }
+      }
     }
+  }
+
+  &__mode-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: #f5f7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .p-plans__mode-title{
+      display: none;
+    }
+  }
+
+  &__mode-body {
+    flex: 1;
+    padding-right: 24px; // espacio para el radio
   }
 
   &__mode-title {
     display: block;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
+    font-family: Lato;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.2px;
+    margin-bottom: 4px;
   }
 
   &__mode-text {
-    font-size: 0.85rem;
-    color: $color-gray;
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    color: $color-text-blue;
+  }
+
+  &__mode-radio {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 2px solid #d5d9eb;
+    box-sizing: border-box;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background-color: $color-primary;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+  }
+
+  &__list {
+    width: 100%;
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
+    gap: 24px;
+  }
 
-    @media (max-width: 900px) {
+  &__error {
+    color: $color-danger;
+    font-size: 14px;
+  }
+
+  &__carousel {
+    width: 100%;
+    margin-top: 8px;
+
+    .swiper {
+      padding-bottom: 32px; // espacio para bullets
+    }
+
+    .swiper-slide {
+      display: flex;
+      height: auto;
+    }
+
+    // Ajusta al nombre real de tu card, si usas otro
+    .c-plan-card {
+      width: 100%;
+    }
+  }
+
+  /* Bullets estilo Rimac */
+  .p-plans__bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #d5d9eb;
+    opacity: 1;
+    margin: 0 4px;
+
+    &.p-plans__bullet--active {
+      width: 20px;
+      background-color: $color-primary;
+    }
+  }
+
+  .swiper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ===== TABLET ===== */
+  @media (max-width: 1024px) {
+    padding: 40px 24px 64px;
+
+    &__title {
+      font-size: 28px;
+      line-height: 34px;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    padding: 32px 16px 48px;
+
+    &__header {
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    &__title {
+      font-size: 28px;
+      line-height: 36px;
+      text-align: left;
+    }
+
+    &__subtitle {
+      font-size: 16px;
+      line-height: 28px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    &__modes {
       grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+
+    &__mode-icon{
+      display: grid;
+      grid-template-columns: 48px auto;
+      width: 100%;
+      background: #fff;
+      justify-content: flex-start;
+      column-gap: 8px;
+
+      .p-plans__mode-title{
+        display: flex;
+      }
+    }
+
+    &__mode-body{
+      .p-plans__mode-title{
+        display: none;
+      }
+    }
+
+    &__mode-card {
+      padding: 40px 24px 40px;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__carousel {
+      .swiper {
+        padding-bottom: 40px;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .swiper-pagination {
+      display: none;
     }
   }
 }

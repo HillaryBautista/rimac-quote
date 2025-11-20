@@ -1,4 +1,3 @@
-// src/ui/components/form/QuoteForm.tsx
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import rules, { type QuoteFormFields } from "./rules";
@@ -26,7 +25,7 @@ export const QuoteForm = () => {
   const validations = rules(getValues);
 
   const onSubmit = (data: QuoteFormFields) => {
-    // Aquí podrías guardar data en contexto / storage si quisieras
+    // Guardar data en contexto / storage si quisieras
     navigate("/plans");
   };
 

@@ -1,29 +1,31 @@
 import type { Plan } from "../entities/Plan";
 import type { PlanRepository } from "../repositories/PlanRepository";
 
-interface Params {
-    age: number;
-    forSomeoneElse: boolean;
-}
+type Params = {
+  age: number;
+  forSomeoneElse: boolean;
+};
 
 export class GetPlansForUserUseCase {
-    private readonly planRepo: PlanRepository;
-    constructor(planRepo: PlanRepository) {
-        this.planRepo = planRepo;
-    }
+  private readonly planRepo: PlanRepository;
+  constructor(planRepo: PlanRepository) {
+    this.planRepo = planRepo;
+  }
 
-    async execute({ age, forSomeoneElse }: Params): Promise<Plan[]> {
-        const plans = await this.planRepo.getPlans();
+  async execute(): Promise<Plan[]> {
+    const allPlans = await this.planRepo.getPlans();
 
-        let filtered = plans.filter((plan) => age <= plan.ageLimit);
+    // Ejemplo de filtro por edad (ajústalo si quieres otra lógica)
+    /* const filtered = allPlans.filter((plan) => age <= plan.age);
 
-        if (forSomeoneElse) {
-            filtered = filtered.map((plan) => ({
-                ...plan,
-                price: plan.price * 0.95, // 5% descuento
-            }));
-        }
+    if (forSomeoneElse) {
+      return filtered.map((plan) => ({
+        ...plan,
+        originalPrice: plan.price,
+        price: Number((plan.price * 0.95).toFixed(2)),
+      }));
+    } */
 
-        return filtered;
-    }
+    return allPlans;
+  }
 }

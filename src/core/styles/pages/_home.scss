@@ -3,27 +3,73 @@
   grid-template-columns: 1.1fr 1fr;
   gap: clamp(24px, 8vw, 128px);
   max-width: 1120px;
-  &__image img {
-    width: 100%;
-    border-radius: $radius-lg;
+  padding: 4rem 0 4rem;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0px;
+    width: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      height: 47%;
+    }
   }
+
+  &::before {
+    left: 0;
+    background-image: url("@assets/images/layout/blurAssetPurple.png");
+
+    @media (max-width: 768px) {
+      bottom: 0;
+      top: auto;
+    }
+  }
+
+  &::after {
+    right: 0;
+    background-image: url("@assets/images/layout/blurAssetTurquoise.png");
+
+    @media (max-width: 768px) {
+      bottom: auto;
+      top: 0;
+    }
+  }
+
+  &__image {
+    z-index: 1;
+    img {
+      width: 100%;
+      border-radius: $radius-lg;
+    }
+
+    &--overlay {
+      display: none; // desktop: oculto
+    }
+  }
+
   &__content {
     max-width: 352px;
+    z-index: 1;
   }
+
   &__badge {
     color: #03050f;
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    background: linear-gradient(86.01deg, #00f4e2 0%, #00ff7f 100%);
-    font-family: BR Sonoma;
     font-weight: 700;
     font-size: 14px;
     line-height: 16px;
-    vertical-align: middle;
+    margin-bottom: 1rem;
+    background: linear-gradient(86.01deg, #00f4e2 0%, #00ff7f 100%);
+    font-family: BR Sonoma;
   }
+
   &__title {
     font-family: BR Sonoma;
     font-weight: 700;
@@ -31,6 +77,7 @@
     line-height: 40px;
     margin: 16px 0 8px;
   }
+
   &__subtitle {
     font-family: BR Sonoma;
     font-weight: 600;
@@ -38,60 +85,100 @@
     line-height: 20px;
     margin-bottom: 24px;
   }
+
+  hr {
+    display: none;
+    border: none;
+    border-top: 1px solid #dde0f0;
+    margin: 8px 0;
+  }
+
+  /* ===== TABLET (<=1024px) ===== */
+  @media (max-width: 1024px) {
+    gap: 48px;
+    padding: 48px 24px 64px;
+
+    &__title {
+      font-size: 28px;
+      line-height: 34px;
+    }
+  }
+
+  /* ===== MOBILE (<=900px) ===== */
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
+
     &__image {
       order: -1;
     }
   }
-} /* Tablet */
-@media (max-width: 1024px) {
-  .p-home {
-    gap: 48px;
-    padding: 48px 24px 64px;
-  }
-  .p-home__title {
-    font-size: 28px;
-    line-height: 34px;
-  }
-} /* Mobile */
-@media (max-width: 768px) {
-  .p-home {
+
+  /* ===== MOBILE (<=768px) ===== */
+  @media (max-width: 768px) {
     max-width: 420px;
     margin: 0 auto;
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 32px 16px 40px;
-  }
-  .p-home__content {
-    order: 1;
-    max-width: 100%;
-  }
-  .p-home__image {
-    order: 0;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 8px;
-    img {
-      max-width: 180px;
-      border-radius: 24px;
+
+    hr {
+      display: block;
     }
-  }
-  .p-home__badge {
-    margin-bottom: 12px;
-    font-size: 13px;
-  }
-  .p-home__title {
-    font-size: 24px;
-    line-height: 30px;
-  }
-  .p-home__subtitle {
-    font-size: 13px;
-    line-height: 18px;
-    margin-bottom: 20px;
-  }
-  .c-btn.c-btn--primary {
-    width: 100%;
-    justify-content: center;
+
+    &__image {
+      order: 0;
+      display: flex; // texto + imagen en fila
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+
+      img {
+        max-width: 180px;
+        border-radius: 24px;
+        flex-shrink: 0;
+      }
+
+      &--overlay {
+        display: flex; // ahora sí se muestra el overlay
+        flex-direction: column;
+        flex: 1;
+
+        .p-home__badge {
+          margin-bottom: 12px;
+          font-size: 13px;
+          padding: 6px 10px;
+          width: fit-content;
+        }
+
+        .p-home__title {
+          font-size: 28px;
+          line-height: 36px;
+          margin: 0;
+        }
+      }
+    }
+
+    &__content {
+      order: 1;
+      max-width: 100%;
+
+      .p-home__badge,
+      .p-home__title {
+        display: none;
+      }
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 20px;
+      font-family: BR Sonoma;
+    }
+
+    .c-btn.c-btn--primary {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }

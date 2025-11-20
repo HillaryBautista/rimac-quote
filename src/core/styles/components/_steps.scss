@@ -1,0 +1,143 @@
+.c-steps {
+    width: 100%;
+    background-color: #EDEFFC; // banda suave
+  
+    &__inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    /* ====== DESKTOP ====== */
+    &__desktop {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+  
+    &__items {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: BR Sonoma, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+  
+    &__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #7a7f9b;
+      font-size: 14px;
+  
+      &--active {
+        .c-steps__circle {
+          background-color: #4f56ff;
+          color: #ffffff;
+          border-color: #4f56ff;
+        }
+  
+        .c-steps__label {
+          font-weight: 600;
+          color: #141938;
+        }
+      }
+  
+      &--completed {
+        .c-steps__circle {
+          border-color: #4f56ff;
+          color: #4f56ff;
+        }
+      }
+    }
+  
+    &__circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #c5cae6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      background-color: #f5f7ff;
+    }
+  
+    &__label {
+      white-space: nowrap;
+    }
+  
+    &__dots {
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: #c5cae6;
+    }
+  
+    /* ====== MOBILE ====== */
+    &__mobile {
+      display: none;
+      width: 100%;
+      padding: 12px 16px;
+      font-family: BR Sonoma, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+  
+    &__mobile-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+  
+    &__back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+  
+    &__step-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7a7f9b;
+    }
+  
+    &__bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background-color: #e0e3fb;
+      overflow: hidden;
+    }
+  
+    &__bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #4f56ff 0%, #4f56ff 100%);
+      transition: width 0.2s ease-out;
+    }
+  
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 768px) {
+      &__inner {
+        padding: 8px 0;
+        justify-content: stretch;
+      }
+  
+      &__desktop {
+        display: none;
+      }
+  
+      &__mobile {
+        display: block;
+      }
+    }
+  }
+  

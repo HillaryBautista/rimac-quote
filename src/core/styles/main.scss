@@ -11,7 +11,14 @@
 
 @import "components/buttons";
 @import "components/forms";
+@import "components/steps";
+@import "components/plan-card";
 
 @import "pages/home";
 @import "pages/plans";
 @import "pages/summary";
+
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+@import "swiper/css";
+@import "swiper/css/effect-coverflow";
