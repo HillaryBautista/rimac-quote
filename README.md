@@ -75,6 +75,10 @@ Frameworks de testing:
 - @testing-library/react
 - @testing-library/jest-dom
 
+Coverage en:
+- coverage/lcov.info → útil para subir a herramientas como SonarQube o Codecov.
+- coverage/lcov-report/index.html → reporte visual en navegador.
+
 --------------------------------------------
 Estructura del proyecto
 --------------------------------------------
