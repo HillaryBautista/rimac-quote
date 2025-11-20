@@ -84,6 +84,9 @@ Coverage generado en:
 
 ## Estructura del proyecto
 
+## Estructura del proyecto
+
+```bash
 src/
 ├── ui/
 │   ├── components/
@@ -101,6 +104,7 @@ src/
 │   └── repositories/
 │
 └── assets/
+
 
 ---
 
