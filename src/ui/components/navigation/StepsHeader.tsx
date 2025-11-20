@@ -1,5 +1,5 @@
 import React from "react";
-import iconButtonBack from "../../../assets/icons/iconButtonBack.svg";
+import iconButtonBack from "@assets/icons/iconButtonBack.svg";
 
 type Step = {
   id: number;

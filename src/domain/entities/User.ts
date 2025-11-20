@@ -1,6 +1,9 @@
 export interface User {
   name: string;
-  age: number;
-  dni: string;
+  lastName: string;
+  birthDay: string;
+  documentType: string;
+  documentNumber: string;
   phone: string;
+  age: number;
 }

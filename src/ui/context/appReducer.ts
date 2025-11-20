@@ -11,6 +11,14 @@ export type AppAction =
     | { type: "SET_USER"; payload: User }
     | { type: "SET_PLAN"; payload: Plan }
     | { type: "SET_QUOTE_MODE"; payload: "me" | "other" }
+    | {
+        type: "UPDATE_USER_CONTACT";
+        payload: {
+            documentType: string;
+            documentNumber: string;
+            phone: string;
+        };
+    }
     | { type: "RESET" };
 
 export const initialState: AppState = {
@@ -27,6 +35,19 @@ export function appReducer(state: AppState, action: AppAction): AppState {
             return { ...state, selectedPlan: action.payload };
         case "SET_QUOTE_MODE":
             return { ...state, quoteMode: action.payload };
+        case "UPDATE_USER_CONTACT":
+            if (!state.user) return state;
+
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    documentType: action.payload.documentType,
+                    documentNumber: action.payload.documentNumber,
+                    phone: action.payload.phone,
+                },
+            };
+
         case "RESET":
             return initialState;
         default:

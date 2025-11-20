@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import rules, { type QuoteFormFields } from "./rules";
 import { limitByDocumentType, limitPhone } from "./utils";
+import { useAppContext } from "../../context/AppContext"; 
 
 export const QuoteForm = () => {
   const navigate = useNavigate();
+  const { dispatch } = useAppContext(); 
 
   const {
     register,
@@ -25,7 +28,20 @@ export const QuoteForm = () => {
   const validations = rules(getValues);
 
   const onSubmit = (data: QuoteFormFields) => {
-    // Guardar data en contexto / storage si quisieras
+    // Desestructuramos los valores que necesitamos
+    const { documentType, documentNumber, phone } = data;
+
+    // Guardar en el contexto (User) los datos de contacto
+    dispatch({
+      type: "UPDATE_USER_CONTACT",
+      payload: {
+        documentType,
+        documentNumber,
+        phone,
+      },
+    });
+
+    // Ir a la pantalla de planes
     navigate("/plans");
   };
 
@@ -65,7 +81,7 @@ export const QuoteForm = () => {
         )}
       </div>
 
-      {/* Celular con label flotante */}
+      {/* Celular */}
       <div className="c-form__group">
         <div className="c-form__field">
           <label className="c-form__field-label">Celular</label>
@@ -110,7 +126,9 @@ export const QuoteForm = () => {
       </div>
 
       <div className="c-form__group">
-        <a href="#" className="c-form__politics">Aplican Términos y Condiciones.</a>
+        <a href="#" className="c-form__politics">
+          Aplican Términos y Condiciones.
+        </a>
       </div>
       <br />
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RimacLayout } from "../components/layout/RimacLayout";
@@ -10,11 +10,12 @@ import { GetUserUseCase } from "../../domain/usecases/GetUserUseCase";
 import { GetPlansForUserUseCase } from "../../domain/usecases/GetPlansForUserUseCase";
 import type { Plan } from "../../domain/entities/Plan";
 
-import iconButtonBack from "../../assets/icons/iconButtonBack.svg";
-import icAddUserLight from "../../assets/images/plans/IcAddUserLight.png";
-import icProtectionLight from "../../assets/images/plans/IcProtectionLight.png";
+import iconButtonBack from "@assets/icons/iconButtonBack.svg";
+import icAddUserLight from "@assets/images/plans/IcAddUserLight.png";
+import icProtectionLight from "@assets/images/plans/IcProtectionLight.png";
 import { StepsHeader } from "@ui/components/navigation/StepsHeader";
 import { PlansCarousel } from "@ui/components/plans/PlansCarousel";
+import { QUOTE_STEPS } from "@ui/navigation/quoteSteps";
 
 export const PlansPage = () => {
   const { state, dispatch } = useAppContext();
@@ -24,22 +25,38 @@ export const PlansPage = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  // Repositorios HTTP (infra) memorizados para no recrearlos en cada render
   const userRepo = useMemo(() => new UserHttpRepository(), []);
   const planRepo = useMemo(() => new PlanHttpRepository(), []);
 
+  // Refs para evitar que, en modo estricto de React 18, se dupliquen las llamadas
+  const hasFetchedUserRef = useRef(false);
+  const hasFetchedPlansRef = useRef(false);
+
+  /** 1) Cargar usuario solo si no existe en el contexto */
   useEffect(() => {
-    const fetchData = async () => {
+    const loadUser = async () => {
+      // Si ya se hizo el fetch (StrictMode) o ya hay usuario, no volvemos a llamar al endpoint
+      if (hasFetchedUserRef.current || state.user) return;
+      hasFetchedUserRef.current = true;
+
+      const getUser = new GetUserUseCase(userRepo);
+      const user = await getUser.execute();
+      dispatch({ type: "SET_USER", payload: user });
+    };
+
+    void loadUser();
+  }, [state.user, userRepo, dispatch]);
+
+  /** 2) Cargar planes (solo una vez) */
+  useEffect(() => {
+    const loadPlans = async () => {
+      // Protección frente al doble montaje de StrictMode
+      if (hasFetchedPlansRef.current) return;
+      hasFetchedPlansRef.current = true;
+
       try {
-        const getUser = new GetUserUseCase(userRepo);
         const getPlans = new GetPlansForUserUseCase(planRepo);
-
-        let user = state.user;
-
-        if (!user) {
-          user = await getUser.execute();
-          dispatch({ type: "SET_USER", payload: user });
-        }
-
         const list = await getPlans.execute();
         setPlans(list);
         setError(null);
@@ -50,19 +67,25 @@ export const PlansPage = () => {
       }
     };
 
-    void fetchData();
-  }, [userRepo, planRepo, state.user, dispatch]);
+    void loadPlans();
+  }, [planRepo]);
 
+  /** 3) Cambiar modo de cotización (para mí / para alguien más) */
   const handleModeChange = (mode: "me" | "other") => {
     dispatch({ type: "SET_QUOTE_MODE", payload: mode });
   };
 
+  /** 4) Seleccionar plan y navegar al resumen */
   const handleSelectPlan = (plan: Plan) => {
     dispatch({ type: "SET_PLAN", payload: plan });
     navigate("/summary");
   };
 
-  // Filtro: 3 primeros "para mí", 3 últimos "para alguien más"
+  /**
+   * 5) Filtro de planes según modo:
+   *    - "me"    → primeros 3
+   *    - "other" → últimos 3
+   */
   const filteredPlans = useMemo(() => {
     if (!plans || plans.length === 0) return [];
 
@@ -73,16 +96,13 @@ export const PlansPage = () => {
     return plans.slice(3, 6);
   }, [plans, state.quoteMode]);
 
-  // Texto del título con nombre del usuario
+  /** 6) Texto del título con el nombre del usuario (Rocío) si está en contexto */
   const userName = state.user?.name;
   const titleText = userName
     ? `${userName} ¿Para quién deseas <br/> cotizar?`
     : "¿Para quién deseas cotizar?";
 
-  const steps = [
-    { id: 1, label: "Planes y coberturas" },
-    { id: 2, label: "Resumen" },
-  ];
+  const steps = QUOTE_STEPS;
 
   return (
     <RimacLayout>
@@ -95,6 +115,7 @@ export const PlansPage = () => {
 
         <section className="p-plans">
           <header className="p-plans__header">
+            {/* Botón volver */}
             <button className="p-plans__back" onClick={() => navigate(-1)}>
               <img
                 src={iconButtonBack}
@@ -104,6 +125,7 @@ export const PlansPage = () => {
               <span>Volver</span>
             </button>
 
+            {/* Título con nombre dinámico */}
             <h1
               className="p-plans__title"
               dangerouslySetInnerHTML={{ __html: titleText }}
@@ -113,7 +135,9 @@ export const PlansPage = () => {
               Selecciona la opción que se ajuste más a tus necesidades.
             </p>
 
+            {/* Cards de modo de cotización */}
             <div className="p-plans__modes">
+              {/* Para mí */}
               <button
                 className={`p-plans__mode-card ${
                   state.quoteMode === "me" ? "p-plans__mode-card--active" : ""
@@ -137,6 +161,7 @@ export const PlansPage = () => {
                 <span className="p-plans__mode-radio" aria-hidden="true" />
               </button>
 
+              {/* Para alguien más */}
               <button
                 className={`p-plans__mode-card ${
                   state.quoteMode === "other"
@@ -164,6 +189,7 @@ export const PlansPage = () => {
             </div>
           </header>
 
+          {/* Listado / carrusel de planes */}
           <section className="p-plans__list">
             {loading && <p>Cargando planes...</p>}
             {error && <p className="p-plans__error">{error}</p>}

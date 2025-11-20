@@ -1,7 +1,7 @@
 import type { Plan } from "../../../domain/entities/Plan";
 
-import IcHomeLight from "../../../assets/images/plans/IcHomeLight.png";
-import IcHospitalLight from "../../../assets/images/plans/IcHospitalLight.png";
+import IcHomeLight from "@assets/images/plans/IcHomeLight.png";
+import IcHospitalLight from "@assets/images/plans/IcHospitalLight.png";
 
 // Mapea nombres → iconos
 const planIcons: Record<string, string> = {

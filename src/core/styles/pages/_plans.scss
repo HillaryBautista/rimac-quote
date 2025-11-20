@@ -19,7 +19,6 @@
     background: none;
     border: none;
     color: $color-purple;
-    font-weight: 600;
     cursor: pointer;
     margin-bottom: 24px;
     padding: 0;
@@ -65,31 +64,39 @@
     max-width: 640px;
   }
 
+  /* ========= CARD MODO ========= */
   &__mode-card {
     @include card;
     position: relative;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 16px 24px 40px;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 28px 32px;
     text-align: left;
     background: #ffffff;
     border-radius: 24px;
-    border: 2px solid transparent;
-    transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-    flex-direction: column;
+    border: 2px solid #e4e7f5;
+    box-shadow: 0px 10px 30px rgba(8, 15, 52, 0.05);
+    cursor: pointer;
+    transition: border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.15s ease,
+      background-color 0.18s ease;
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0px 12px 30px rgba(8, 15, 52, 0.1);
+      box-shadow: 0px 14px 38px rgba(8, 15, 52, 0.12);
+      border-color: rgba($color-primary, 0.4);
     }
 
     &--active {
       border-color: $color-primary;
-      box-shadow: 0px 12px 30px rgba($color-primary, 0.2);
+      background: #f6fbff;
+      box-shadow: 0px 16px 40px rgba($color-primary, 0.2);
 
       .p-plans__mode-radio {
-        border-color: $color-primary;
+        border-color: #19c285;
+        background: #19c285;
 
         &::after {
           opacity: 1;
@@ -99,29 +106,24 @@
   }
 
   &__mode-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-    background: #f5f7ff;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    gap: 14px;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 48px;
+      height: 48px;
       object-fit: contain;
     }
 
-    .p-plans__mode-title{
+    .p-plans__mode-title {
       display: none;
     }
   }
 
   &__mode-body {
     flex: 1;
-    padding-right: 24px; // espacio para el radio
+    padding-right: 32px;
   }
 
   &__mode-title {
@@ -132,6 +134,7 @@
     line-height: 28px;
     letter-spacing: -0.2px;
     margin-bottom: 4px;
+    color: $color-text-dark;
   }
 
   &__mode-text {
@@ -143,22 +146,24 @@
     color: $color-text-blue;
   }
 
+  /* ===== CHECK VERDE ===== */
   &__mode-radio {
     position: absolute;
     top: 18px;
     right: 18px;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 999px;
     border: 2px solid #d5d9eb;
-    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &::after {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 999px;
-      background-color: $color-primary;
+      content: "✓";
+      font-size: 14px;
+      color: white;
       opacity: 0;
       transition: opacity 0.15s ease;
     }
@@ -184,7 +189,7 @@
     margin-top: 8px;
 
     .swiper {
-      padding-bottom: 32px; // espacio para bullets
+      padding-bottom: 32px;
     }
 
     .swiper-slide {
@@ -192,13 +197,11 @@
       height: auto;
     }
 
-    // Ajusta al nombre real de tu card, si usas otro
     .c-plan-card {
       width: 100%;
     }
   }
 
-  /* Bullets estilo Rimac */
   .p-plans__bullet {
     width: 8px;
     height: 8px;
@@ -261,27 +264,25 @@
       max-width: 100%;
     }
 
-    &__mode-icon{
+    &__mode-icon {
       display: grid;
       grid-template-columns: 48px auto;
-      width: 100%;
-      background: #fff;
-      justify-content: flex-start;
-      column-gap: 8px;
+      align-items: center;
+      column-gap: 12px;
 
-      .p-plans__mode-title{
-        display: flex;
+      .p-plans__mode-title {
+        display: block;
       }
     }
 
-    &__mode-body{
-      .p-plans__mode-title{
+    &__mode-body {
+      .p-plans__mode-title {
         display: none;
       }
     }
 
     &__mode-card {
-      padding: 40px 24px 40px;
+      padding: 24px 20px 28px;
     }
 
     &__grid {

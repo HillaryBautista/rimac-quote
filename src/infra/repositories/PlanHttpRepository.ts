@@ -1,6 +1,7 @@
 import type { PlanRepository } from "../../domain/repositories/PlanRepository";
 import type { Plan } from "../../domain/entities/Plan";
 import { httpClient } from "../http/httpClient";
+import { API_CONFIG } from "@core/config/api";
 
 type PlansApiResponse = {
   list: Plan[];
@@ -9,7 +10,7 @@ type PlansApiResponse = {
 export class PlanHttpRepository implements PlanRepository {
   async getPlans(): Promise<Plan[]> {
     const { data } = await httpClient.get<PlansApiResponse>(
-      "https://rimac-front-end-challenge.netlify.app/api/plans.json"
+      `${API_CONFIG.BASE_URL}${API_CONFIG.PLANS}`
     );
 
     return data.list;
