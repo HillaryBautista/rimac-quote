@@ -15,21 +15,5 @@ export default defineConfig({
       '@domain': path.resolve(__dirname, './src/domain'),
       '@infra': path.resolve(__dirname, './src/infra'),
     },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setupTests.ts',
-    css: true,
-    coverage: {
-      provider: 'v8',                // o 'istanbul' si prefieres
-      reporter: ['text', 'html', 'lcov'],
-      include: ['src/**/*.{ts,tsx}'],
-      exclude: [
-        'src/main.tsx',
-        'src/core/styles/**',
-        'src/assets/**',
-      ],
-    },
-  },
+  }
 })

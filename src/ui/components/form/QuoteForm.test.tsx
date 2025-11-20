@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QuoteForm } from "./QuoteForm";
@@ -39,13 +39,16 @@ describe("<QuoteForm />", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Configuramos qué devuelve useForm ANTES de renderizar el componente
-    (useForm as unknown as vi.Mock).mockReturnValue({
+
+    // casteamos useForm a Mock para TS
+    const useFormMock = useForm as unknown as Mock;
+
+    useFormMock.mockReturnValue({
       register: vi.fn(),
       handleSubmit: (fn: (data: QuoteFormFields) => void) => {
-        // guardamos la función onSubmit interna del componente
+        // guardamos el callback real del form
         submitCallback = fn;
-        // retornamos un onSubmit fake (la función que React asigna al form)
+        // lo que devuelve react-hook-form normalmente
         return vi.fn();
       },
       formState: { errors: {} },
@@ -63,7 +66,6 @@ describe("<QuoteForm />", () => {
   it("debe despachar UPDATE_USER_CONTACT y navegar a /plans cuando el formulario es válido", () => {
     renderComponent();
 
-    // Simulamos que react-hook-form llama a onSubmit con datos válidos
     const validData: QuoteFormFields = {
       documentType: "DNI",
       documentNumber: "12345678",
@@ -72,12 +74,10 @@ describe("<QuoteForm />", () => {
       acceptComms: false,
     };
 
-    // Nos aseguramos de que submitCallback exista
     expect(submitCallback).toBeDefined();
 
     submitCallback!(validData);
 
-    // Se debe llamar al dispatch con los datos de contacto
     expect(dispatchMock).toHaveBeenCalledTimes(1);
     expect(dispatchMock).toHaveBeenCalledWith({
       type: "UPDATE_USER_CONTACT",
@@ -88,7 +88,6 @@ describe("<QuoteForm />", () => {
       },
     });
 
-    // Y navegar a /plans
     expect(navigateMock).toHaveBeenCalledTimes(1);
     expect(navigateMock).toHaveBeenCalledWith("/plans");
   });

@@ -88,22 +88,50 @@ describe('rules', () => {
 
         it('debe validar que solo contenga números', () => {
             const r = createRules('DNI');
-            const pattern = r.phone?.pattern;
 
-            expect(pattern?.value).toEqual(/^\d+$/);
-            expect(pattern?.message).toBe('El celular solo puede contener números');
+            // pattern en react-hook-form es ValidationRule<RegExp>:
+            // puede ser un RegExp directo o un objeto { value, message }.
+            const pattern = r.phone?.pattern as
+                | RegExp
+                | { value: RegExp; message: string };
+
+            if (pattern instanceof RegExp) {
+                expect(pattern).toEqual(/^\d+$/);
+            } else {
+                expect(pattern.value).toEqual(/^\d+$/);
+                expect(pattern.message).toBe(
+                    'El celular solo puede contener números'
+                );
+            }
         });
 
         it('debe validar longitud mínima y máxima de 9 dígitos', () => {
             const r = createRules('DNI');
-            expect(r.phone?.minLength?.value).toBe(9);
-            expect(r.phone?.minLength?.message).toBe(
-                'El celular debe tener 9 dígitos'
-            );
-            expect(r.phone?.maxLength?.value).toBe(9);
-            expect(r.phone?.maxLength?.message).toBe(
-                'El celular debe tener 9 dígitos'
-            );
+
+            const minLength = r.phone?.minLength as
+                | number
+                | { value: number; message: string };
+            const maxLength = r.phone?.maxLength as
+                | number
+                | { value: number; message: string };
+
+            if (typeof minLength === 'number') {
+                expect(minLength).toBe(9);
+            } else {
+                expect(minLength.value).toBe(9);
+                expect(minLength.message).toBe(
+                    'El celular debe tener 9 dígitos'
+                );
+            }
+
+            if (typeof maxLength === 'number') {
+                expect(maxLength).toBe(9);
+            } else {
+                expect(maxLength.value).toBe(9);
+                expect(maxLength.message).toBe(
+                    'El celular debe tener 9 dígitos'
+                );
+            }
         });
     });
 
@@ -123,6 +151,6 @@ describe('rules', () => {
 
     it('acceptComms debe ser opcional (sin reglas definidas)', () => {
         const r = createRules('DNI');
-        expect(r.acceptComms).toEqual({}); 
+        expect(r.acceptComms).toEqual({});
     });
 });
