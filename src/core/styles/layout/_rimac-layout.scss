@@ -1,0 +1,139 @@
+.l-rimac {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 80px;
+    width: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+      height: 47%;
+    }
+  }
+
+  &::before {
+    left: 0;
+    background-image: url("@assets/images/layout/blurAssetPurple.png");
+
+    @media (max-width: 768px) {
+      bottom: 0;
+      top: auto;
+    }
+  }
+
+  &::after {
+    right: 0;
+    background-image: url("@assets/images/layout/blurAssetTurquoise.png");
+
+    @media (max-width: 768px) {
+      bottom: auto;
+      top: 0;
+    }
+  }
+
+  &__header {
+    @include flex-center;
+    padding: 1.2rem;
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    height: 64px;
+
+    @include container;
+    justify-content: space-between;
+
+    &--information {
+      @include flex-center;
+      color: $color-text-dark;
+      column-gap: 16px;
+
+      font-family: BR Sonoma;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: right;
+
+      a {
+        @include flex-center;
+        column-gap: 8px;
+
+        font-family: BR Sonoma;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+        text-align: right;
+        color: $color-text-dark;
+        text-decoration: none;
+      }
+
+      @media (max-width: 767px) {
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    position: relative;
+    z-index: 1;
+    @include flex-center;
+    height: 106px;
+    padding: 1.2rem;
+    background: $color-text-dark;
+
+    &--container {
+      @include flex-center;
+      @include container;
+      justify-content: space-between;
+      width: 100%;
+
+      font-family: BR Sonoma;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      vertical-align: middle;
+      color: white;
+    }
+
+    hr {
+      width: 100%;
+      color: #2b304e;
+      margin: 24px 0;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      height: 152px;
+      &--container {
+        flex-direction: column;
+        justify-content: center;
+        font-size: 12px;
+        line-height: 20px;
+      }
+      hr {
+        display: flex;
+      }
+    }
+  }
+
+  &__main {
+    flex: 1;
+    padding: 4rem 0 4rem;
+    display: flex;
+    justify-content: center;
+    //@include flex-center;
+    position: relative;
+    z-index: 1;
+  }
+}

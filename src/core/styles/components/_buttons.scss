@@ -1,0 +1,22 @@
+.c-btn {
+  padding: 20px 40px;
+  border-radius: $radius-md;
+
+  font-family: BR Sonoma;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  text-align: center;
+
+  &--primary {
+    background: #03050F;
+    color: white;
+    transition: 0.2s ease;
+    border-radius: 40px;
+
+    &:hover {
+      background: darken(#03050F, 5%);
+    }
+  }
+}

@@ -1,0 +1,181 @@
+.c-form {
+  font-family: "BR Sonoma";
+
+  &__group {
+    margin-bottom: 1.5rem;
+  }
+
+  &__control {
+    display: flex;
+    border-radius: 12px;
+    border: 1px solid #5e6488;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+
+  &__field {
+    position: relative;
+    flex: 1;
+  }
+
+  &__field-label {
+    position: absolute;
+    left: 16px;
+    top: 8px;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    color: #5e6488;
+    pointer-events: none;
+
+    font-family: BR Sonoma;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0 16px;
+    height: 56px;
+    border-radius: 12px;
+    border: 1px solid #5e6488;
+    background-color: #ffffff;
+
+    font-family: BR Sonoma;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #03050f;
+
+    &:focus {
+      outline: none;
+      border-color: #4a5cff;
+      box-shadow: 0 0 0 1px #4a5cff33;
+    }
+
+    &::placeholder {
+      color: #6b7280;
+    }
+
+    /* Select DNI/CE */
+    /* Select DNI/CE */
+    &--select {
+      max-width: 140px;
+      flex: 0 0 140px;
+
+      border-radius: 0;
+      border: none;
+      border-right: 1px solid #5e6488 !important;
+      background-color: #ffffff;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      background-image: url("@assets/icons/iconArrowDown.svg");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 20px;
+
+      padding-right: 36px !important; // deja espacio al icono
+    }
+
+    &--text {
+      border-radius: 0;
+      border: none;
+      padding: 22px 16px 8px;
+      height: 56px;
+      background-color: #ffffff;
+    }
+
+    &--error {
+      border-color: #e11d48;
+    }
+  }
+
+  &__control .c-form__input {
+    border-radius: 0;
+    border: none;
+  }
+
+  &__group > .c-form__field > .c-form__input {
+    border-radius: 12px;
+    border: 1px solid #5e6488;
+  }
+
+  &__error-text {
+    color: #e11d48;
+    font-size: 12px;
+    margin-top: 0.3rem;
+  }
+
+  &__checkbox {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    cursor: pointer;
+
+    color: #0a051e;
+    font-family: BR Sonoma;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+
+    /* ocultamos el checkbox real */
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    span {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    /* cuadrito del check */
+    span::before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      top: -1px;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 1.5px solid #0a051e;
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    /* fondo negro y check blanco cuando está marcado */
+    input:checked + span::before {
+      background-color: #0a051e;
+      border-color: #0a051e;
+    }
+
+    input:checked + span::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 10px;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      transform: rotate(45deg);
+    }
+  }
+
+  &__politics {
+    font-family: BR Sonoma;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    color: #03050F;
+  }
+}

@@ -1,0 +1,66 @@
+.p-plans {
+  max-width: 1120px;
+  width: 100%;
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__back {
+    background: none;
+    color: $color-primary;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &__subtitle {
+    color: $color-gray;
+    margin-bottom: 1.5rem;
+  }
+
+  &__modes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  &__mode-card {
+    @include card;
+    padding: 1.2rem 1.4rem;
+    text-align: left;
+    background: #fff;
+    border: 2px solid transparent;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+
+    &--active {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+    }
+  }
+
+  &__mode-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  &__mode-text {
+    font-size: 0.85rem;
+    color: $color-gray;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
