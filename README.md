@@ -1,76 +1,122 @@
-# Requerimientos
-- node 20.19.4
+# RIMAC Quote App
 
-# React + TypeScript + Vite
+## Descripción:
+Este proyecto es una aplicación desarrollada en React + Vite que permite a los usuarios cotizar planes de salud de RIMAC de forma rápida.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+El flujo principal consiste en:
+- Ingreso de datos del usuario.
+- Carga y selección de planes disponibles.
+- Visualización del resumen final.
 
-Currently, two official plugins are available:
+Incluye:
+- Arquitectura modular por capas (domain, infra, ui)
+- Manejo de estado global con Context + useReducer
+- Consumo de APIs usando repositorios y casos de uso
+- Validaciones con react-hook-form
+- Pruebas unitarias con Vitest + Testing Library
+- Coverage automatizado
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+--------------------------------------------
+Cómo ejecutar el proyecto
+--------------------------------------------
 
-## React Compiler
+1. Clonar el repositorio
+   git clone <URL_DEL_REPOSITORIO>
+   cd <NOMBRE_DEL_PROYECTO>
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+2. Instalar dependencias
+   npm install
 
-## Expanding the ESLint configuration
+3. Crear archivo de variables de entorno
+   Crear un archivo llamado .env en la raíz con:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+   VITE_API_BASE_URL=https://tu-api.com
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+4. Ejecutar en modo desarrollo
+   npm run dev
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+   La app se abrirá en:
+   http://localhost:5173
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+5. Generar build para producción
+   npm run build
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+   El resultado quedará en la carpeta:
+   dist/
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+--------------------------------------------
+Scripts principales
+--------------------------------------------
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- npm run dev               → Levanta la app en modo desarrollo.
+- npm run build             → Genera build de producción.
+- npm run test              → Corre todos los tests.
+- npm run test:watch        → Modo watch para testing.
+- npm run test:coverage     → Genera reporte de coverage.
+- npm run test:ui           → UI visual para tests.
+- npm run test:coverage:ui  → Coverage con interfaz visual.
+
+--------------------------------------------
+Testing
+--------------------------------------------
+
+Todas las capas tienen cobertura de tests.
+
+Actualmente el proyecto tiene cobertura en:
+- Components
+- Context
+- Pages
+- Domain usecases
+- Infra repositories
+- Utils
+
+Frameworks de testing:
+- Vitest
+- @testing-library/react
+- @testing-library/jest-dom
+
+--------------------------------------------
+Estructura del proyecto
+--------------------------------------------
+
+src/
+ ├── ui/
+ │   ├── components/
+ │   ├── pages/
+ │   ├── context/
+ │   └── navigation/
+ │
+ ├── domain/
+ │   ├── entities/
+ │   ├── usecases/
+ │   └── repositories/
+ │
+ ├── infra/
+ │   ├── http/
+ │   └── repositories/
+ │
+ └── assets/
+
+--------------------------------------------
+Cumplimiento de criterios
+--------------------------------------------
+
+✔ Pruebas unitarias  
+✔ Manejo de estado  
+✔ Consumo de APIs  
+✔ Validación de formularios  
+✔ Estructura de carpetas  
+✔ HTML semántico  
+✔ Git/Github  
+✔ Clean Code  
+✔ Performance  
+✔ React  
+✔ Diseño responsive  
+✔ Arquitectura por capas  
+
+--------------------------------------------
+Autor
+--------------------------------------------
+
+Hillary Bautista  
+Developer  

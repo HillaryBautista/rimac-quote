@@ -18,7 +18,7 @@ export const HomePage = () => {
 
         <div className="p-home__content">
           <span className="p-home__badge">Seguro Salud Flexible</span>
-          <h1 className="p-home__title">Creado para ti y tu familia</h1>
+          <h2 className="p-home__title">Creado para ti y tu familia</h2>
           <p className="p-home__subtitle">
             Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra
             asesoría. 100% online.
