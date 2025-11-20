@@ -36,8 +36,8 @@ export const PlansPage = () => {
   /** 1) Cargar usuario solo si no existe en el contexto */
   useEffect(() => {
     const loadUser = async () => {
-      // Si ya se hizo el fetch (StrictMode) o ya hay usuario, no volvemos a llamar al endpoint
-      if (hasFetchedUserRef.current || state.user) return;
+      // Solo evitamos repetir la llamada por StrictMode
+      if (hasFetchedUserRef.current) return;
       hasFetchedUserRef.current = true;
 
       const getUser = new GetUserUseCase(userRepo);
@@ -46,12 +46,11 @@ export const PlansPage = () => {
     };
 
     void loadUser();
-  }, [state.user, userRepo, dispatch]);
+  }, [userRepo, dispatch]);
 
   /** 2) Cargar planes (solo una vez) */
   useEffect(() => {
     const loadPlans = async () => {
-      // Protección frente al doble montaje de StrictMode
       if (hasFetchedPlansRef.current) return;
       hasFetchedPlansRef.current = true;
 
@@ -195,7 +194,10 @@ export const PlansPage = () => {
             {error && <p className="p-plans__error">{error}</p>}
 
             {!loading && !error && (
-              <PlansCarousel plans={filteredPlans} onSelect={handleSelectPlan} />
+              <PlansCarousel
+                plans={filteredPlans}
+                onSelect={handleSelectPlan}
+              />
             )}
           </section>
         </section>
