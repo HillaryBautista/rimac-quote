@@ -10,5 +10,9 @@ export class GetPlansForUserUseCase {
   async execute(): Promise<Plan[]> {
     const allPlans = await this.planRepo.getPlans();
     return allPlans;
+    //return allPlans.map((plan, index) => ({
+    //  ...plan,
+    //  recommended: index === 1
+    //}));
   }
 }
