@@ -121,6 +121,11 @@ Cumplimiento de criterios
 ✔ Arquitectura por capas  
 
 --------------------------------------------
+Previsualización del proyecto
+--------------------------------------------
+Vercel: https://rimac-quote-6qdl.vercel.app/
+
+--------------------------------------------
 Autor
 --------------------------------------------
 
